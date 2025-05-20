@@ -1,0 +1,17 @@
+{
+  "name": "news_manager",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "django",
+  "workspaceFolder": "/app",
+  "forwardPorts": [8000],
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash"
+  },
+  "postCreateCommand": "poetry install && poetry run python manage.py migrate",
+  "remoteEnv": {
+    "PYTHONUNBUFFERED": "1"
+  },
+  "mounts": [
+    "source=devcontainer-db,target=/var/lib/postgresql/data,type=volume"
+  ]
+}
