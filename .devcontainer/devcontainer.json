@@ -4,8 +4,12 @@
   "service": "django",
   "workspaceFolder": "/app",
   "forwardPorts": [8000],
-  "settings": {
-    "terminal.integrated.defaultProfile.linux": "bash"
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
   },
   "postCreateCommand": "poetry install && poetry run python manage.py migrate",
   "remoteEnv": {
