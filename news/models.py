@@ -22,6 +22,10 @@ class News(models.Model):
         choices=STATUS_CHOICES,
         default="draft",
     )
+    vertical = models.ForeignKey(
+        "accounts.Vertical", on_delete=models.SET_NULL, null=True, blank=True
+    )
+    is_pro = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if self.status == "published" and self.published_date is None:
