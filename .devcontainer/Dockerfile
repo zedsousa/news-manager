@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY pyproject.toml poetry.lock /app/
 RUN pip install poetry && poetry config virtualenvs.create false && poetry install --no-root --no-interaction --no-ansi
+RUN apt update && apt install -y git
 
 COPY . /app/
 
