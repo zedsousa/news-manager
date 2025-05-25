@@ -5,7 +5,12 @@ services:
     build:
       context: .
       dockerfile: .devcontainer/Dockerfile
-    command: poetry run python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "
+        poetry run python manage.py migrate &&
+        poetry run python manage.py seed_groups &&
+        poetry run python manage.py runserver 0.0.0.0:8000
+      "
     volumes:
       - .:/app
     ports:
