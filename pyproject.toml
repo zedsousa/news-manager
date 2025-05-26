@@ -31,6 +31,8 @@ black = "^25.1.0"
 isort = "^6.0.1"
 autoflake = "^2.3.1"
 pre-commit = "^4.2.0"
+pytest = "^7.4.3"
+pylint = "^3.0.2"
 
 [tool.black]
 line-length = 88
@@ -39,3 +41,11 @@ target-version = ['py312']
 [tool.isort]
 profile = "black"
 line_length = 88
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "."
+]
+
+[MASTER]
+init-hook='import sys; sys.path.append(".")'
