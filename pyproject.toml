@@ -33,6 +33,7 @@ autoflake = "^2.3.1"
 pre-commit = "^4.2.0"
 pytest = "^7.4.3"
 pylint = "^3.0.2"
+pytest-django = "^4.5"
 
 [tool.black]
 line-length = 88
@@ -49,3 +50,7 @@ pythonpath = [
 
 [MASTER]
 init-hook='import sys; sys.path.append(".")'
+
+[pytest]
+DJANGO_SETTINGS_MODULE = news_manager.settings
+python_files = tests.py test_*.py *_tests.py
