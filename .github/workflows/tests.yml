@@ -1,0 +1,53 @@
+name: Tests
+
+on:
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:15
+        env:
+          POSTGRES_DB: news_manager
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install Poetry
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-ansi --with dev
+
+      - name: Run tests
+        env:
+          DJANGO_SETTINGS_MODULE: news_manager.settings
+          DEBUG: true
+          SECRET_KEY: test
+          DB_NAME: news_manager
+          DB_USER: postgres
+          DB_PASSWORD: postgres
+          DB_HOST: localhost
+          DB_PORT: 5432
+        run: poetry run pytest
