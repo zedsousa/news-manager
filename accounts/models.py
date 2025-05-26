@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from .managers import UserManager
+
 
 class User(AbstractUser):
     ROLE_CHOICES = (
@@ -10,6 +12,8 @@ class User(AbstractUser):
     )
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default="reader")
     plan = models.ForeignKey("Plan", on_delete=models.SET_NULL, null=True, blank=True)
+
+    objects = UserManager()
 
     def __str__(self):
         return self.username
