@@ -32,4 +32,5 @@ jobs:
         run: poetry install --no-interaction --no-ansi
 
       - name: Run tests
+          DJANGO_SETTINGS_MODULE: news_manager.settings
         run: poetry run pytest
